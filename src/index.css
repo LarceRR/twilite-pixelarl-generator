@@ -1,61 +1,58 @@
+@use "sass:color";
 
-
-/* global.css */
 :root {
-  color-scheme: light dark;
-  
-  /* Светлая тема (по умолчанию) */
-  --bg: #ffffff;
-  --text: #111827;
-  --surface: #f9fafb;
-  --border: #e5e7eb;
-  --primary: #2563eb;
+  color-scheme: light;
+  --font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --bg: oklch(96% .012 95);
+  --surface: oklch(99% .008 95);
+  --surface-raised: oklch(100% .005 95);
+  --nav-bg: color-mix(in oklch, var(--bg) 94%, transparent);
+  --text: oklch(24% .025 170);
+  --text-muted: oklch(53% .025 170);
+  --line: oklch(86% .018 170);
+  --line-soft: oklch(90% .014 170);
+  --accent: oklch(51% .12 166);
+  --accent-ink: oklch(98% .01 166);
+  --accent-wash: oklch(94% .035 166);
+  --accent-line: oklch(76% .07 166);
+  --accent-shadow: oklch(51% .12 166 / .18);
+  --coral: oklch(62% .15 35);
+  --amber: oklch(63% .13 82);
+  --violet: oklch(54% .13 305);
+  --preview-bg: oklch(93% .025 170);
+  --focus: oklch(48% .16 250);
 }
 
-/* Тёмная тема — переопределяем переменные */
 :root[data-theme="dark"] {
-  --bg: #0b1220;
-  --text: #e5e7eb;
-  --surface: #0f172a;
-  --border: #1f2937;
-  --primary: #60a5fa;
+  color-scheme: dark;
+  --bg: oklch(16% .018 170);
+  --surface: oklch(20% .022 170);
+  --surface-raised: oklch(24% .026 170);
+  --nav-bg: color-mix(in oklch, var(--bg) 93%, transparent);
+  --text: oklch(93% .018 95);
+  --text-muted: oklch(69% .022 170);
+  --line: oklch(32% .028 170);
+  --line-soft: oklch(26% .024 170);
+  --accent: oklch(77% .12 166);
+  --accent-ink: oklch(18% .025 170);
+  --accent-wash: oklch(27% .045 166);
+  --accent-line: oklch(47% .075 166);
+  --accent-shadow: oklch(77% .12 166 / .12);
+  --coral: oklch(75% .13 35);
+  --amber: oklch(80% .12 82);
+  --violet: oklch(74% .11 305);
+  --preview-bg: oklch(22% .025 170);
+  --focus: oklch(78% .12 220);
 }
 
-/* Применяем переменные ко всем элементам */
-body {
-  background: var(--bg);
-  color: var(--text);
-  height: 100vh;
-  padding: 24px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
+* { box-sizing: border-box; }
+html { min-width: 320px; background: var(--bg); }
+body { min-width: 320px; min-height: 100vh; margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.5; text-rendering: optimizeLegibility; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+::selection { background: var(--accent); color: var(--accent-ink); }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
-/* Стили для View Transition – отключаем дефолтную анимацию браузера */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-}
-::view-transition-old(root) {
-  z-index: 1;
-}
-::view-transition-new(root) {
-  z-index: 9999;
-}
-::view-transition-image-pair(root) {
-  isolation: isolate;
-}
-
-html {
-  background: #181818;
-}
-
-h1,h2,h3,h4,h5,h6,span,p, text {
-  color: white;
-}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
